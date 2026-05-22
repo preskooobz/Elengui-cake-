@@ -1,5 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { ChevronDown, Sparkles, ShieldCheck, Truck } from 'lucide-react'
+import { useFadeIn } from '../hooks/useFadeIn'
 
 const items = [
   {
@@ -23,9 +24,11 @@ const items = [
 ]
 
 export default function WhyChooseSection() {
+  const whyRef = useFadeIn(0.1)
+
   return (
-    <section className="bg-white px-4 py-16 md:px-8 md:py-24">
-      <div className="mx-auto max-w-6xl rounded-[2rem] bg-black/[0.03] p-6 shadow-sm md:p-10">
+    <section ref={whyRef} className="bg-white px-4 py-16 md:px-8 md:py-24">
+      <div className="mx-auto max-w-6xl rounded-[2rem] bg-black/3 p-6 shadow-sm md:p-10">
         <div className="mx-auto max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full brand-gradient-soft px-4 py-2 text-xs font-medium text-black/75 shadow-sm">
             <Sparkles className="h-4 w-4" />
@@ -47,7 +50,7 @@ export default function WhyChooseSection() {
               <Disclosure key={item.title} defaultOpen={index === 0}>
                 {({ open }) => (
                   <div className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-black/5 transition hover:shadow-md">
-                    <DisclosureButton className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-black/[0.02] md:px-6">
+                    <DisclosureButton className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-black/2 md:px-6">
                       <div className="flex items-center gap-3">
                         <span className="flex h-10 w-10 items-center justify-center rounded-full brand-gradient text-white shadow-sm">
                           <Icon className="h-5 w-5" />

@@ -2,10 +2,24 @@ import { useEffect, useState } from 'react'
 import { Progress } from '../components/animate-ui/components/radix/progress'
 import { IconCakeSlice, IconMenu, IconX } from '../components/icons/Icons'
 import { navItems } from '../content/landingContent'
+import { useFadeIn } from '../hooks/useFadeIn'
 
 export default function Header() {
+  const headerRef = useFadeIn(0.05)
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
+  const [activeHash, setActiveHash] = useState('#accueil')
+
+  useEffect(() => {
+    const updateHash = () => {
+      setActiveHash(window.location.hash || '#accueil')
+    }
+
+    updateHash()
+    window.addEventListener('hashchange', updateHash)
+
+    return () => window.removeEventListener('hashchange', updateHash)
+  }, [])
 
   useEffect(() => {
     const updateProgress = () => {
@@ -23,7 +37,7 @@ export default function Header() {
   }, [])
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/5 bg-white/75 backdrop-blur-md">
+    <header ref={headerRef} className="sticky top-0 z-50 border-b border-black/5 bg-white/75 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-8">
         <a href="#accueil" className="flex items-center gap-3">
           <span className="flex h-10 w-10 items-center justify-center rounded-full brand-gradient text-white shadow-sm">
@@ -37,9 +51,20 @@ export default function Header() {
             <a
               key={item.label}
               href={item.href}
-              className="rounded-full px-4 py-2 text-sm text-black/70 transition hover:bg-black/5 hover:text-black hover:shadow-sm"
+              className={`group rounded-full px-4 py-2 text-sm transition ${
+                activeHash === item.href
+                  ? ' text-black'
+                  : 'text-black/70 hover:text-black'
+              }`}
             >
-              {item.label}
+              <span className="relative inline-flex items-center pb-1">
+                {item.label}
+                <span
+                  className={`absolute bottom-0 left-0 h-0.5 w-full origin-left rounded-full bg-black transition-transform duration-300 ${
+                    activeHash === item.href ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  }`}
+                />
+              </span>
             </a>
           ))}
         </nav>
@@ -62,7 +87,11 @@ export default function Header() {
                 key={item.label}
                 href={item.href}
                 onClick={() => setMenuOpen(false)}
-                className="rounded-2xl px-4 py-3 text-sm text-black/70 transition hover:bg-black/5 hover:text-black"
+                className={`rounded-2xl px-4 py-3 text-sm transition ${
+                  activeHash === item.href
+                    ? 'text-black'
+                    : 'text-black/70 hover:text-black'
+                }`}
               >
                 {item.label}
               </a>
