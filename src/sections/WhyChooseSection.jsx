@@ -38,7 +38,7 @@ export default function WhyChooseSection() {
             Une pâtisserie pensée pour être belle, simple et mémorable.
           </h2>
           <p className="mt-4 text-sm leading-7 text-black/65 md:text-base">
-            Cette section utilise un accordéon interactif pour présenter les avantages clés de manière claire, moderne et aérée.
+            Chez Elengui Cake, nous croyons que chaque gâteau doit être une œuvre d'art qui éveille les sens. Notre engagement envers la qualité, la fiabilité et la commodité fait de nous le choix idéal pour tous vos besoins en pâtisserie. Que vous planifiez une fête d'anniversaire, un mariage ou simplement une envie sucrée, nous sommes là pour rendre chaque moment délicieux et mémorable.
           </p>
         </div>
 
